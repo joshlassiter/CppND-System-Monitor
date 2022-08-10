@@ -7,7 +7,7 @@
 #include "process.h"
 #include "processor.h"
 #include "system.h"
-
+#include "linux_parser.h"
 using std::set;
 using std::size_t;
 using std::string;
@@ -20,13 +20,25 @@ You need to properly format the uptime. Refer to the comments mentioned in forma
 Processor& System::Cpu() { return cpu_; }
 
 // TODO: Return a container composed of the system's processes
-vector<Process>& System::Processes() { return processes_; }
+vector<Process>& System::Processes() { 
+    processes_.clear();
+    vector <int> p = LinuxParser::Pids();
+    for(int i=0;i<p.size(); i++){
+        Process x = Process(p.at(i));
+        processes_.push_back(x);
+    }
+    
+    return processes_; }
 
 // TODO: Return the system's kernel identifier (string)
-std::string System::Kernel() { return string(); }
+std::string System::Kernel() { 
+    string x = LinuxParser::Kernel();
+    return x; }
 
 // TODO: Return the system's memory utilization
-float System::MemoryUtilization() { return 0.0; }
+float System::MemoryUtilization() { 
+    float x = LinuxParser::MemoryUtilization();
+    return x; }
 
 // TODO: Return the operating system name
 std::string System::OperatingSystem() { return string(); }
@@ -38,4 +50,6 @@ int System::RunningProcesses() { return 0; }
 int System::TotalProcesses() { return 0; }
 
 // TODO: Return the number of seconds since the system started running
-long int System::UpTime() { return 0; }
+long int System::UpTime() { 
+    long int x = LinuxParser::UpTime();
+    return x; }
