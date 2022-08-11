@@ -11,8 +11,8 @@ using std::string;
 string Format::ElapsedTime(long seconds[[maybe_unused]]) { 
     int hour = seconds/3600;
     seconds = seconds - (hour *3600);
-    int min = seconds/60;
-    seconds = seconds - (min*60);
+    int minute = seconds/60;
+    seconds = seconds - (minute*60);
     string hr,min,sec;
     std::stringstream hh;
     hh << hour;
@@ -26,6 +26,6 @@ string Format::ElapsedTime(long seconds[[maybe_unused]]) {
     ss << seconds;
     ss >> sec;
 
-    string time = hr + ":" +min + ":" + sec;
+    string time = hr + ":" + min + ":" + sec;
 
     return time; }

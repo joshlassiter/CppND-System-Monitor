@@ -41,10 +41,14 @@ float System::MemoryUtilization() {
     return x; }
 
 // TODO: Return the operating system name
-std::string System::OperatingSystem() { return string(); }
+std::string System::OperatingSystem() {
+    std::string x = LinuxParser::OperatingSystem();
+     return x; }
 
 // TODO: Return the number of processes actively running on the system
-int System::RunningProcesses() { return 0; }
+int System::RunningProcesses() { 
+    int x = LinuxParser::RunningProcesses();
+    return x; }
 
 // TODO: Return the total number of processes on the system
 int System::TotalProcesses() { return 0; }
