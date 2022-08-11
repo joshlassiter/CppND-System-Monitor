@@ -232,7 +232,7 @@ int LinuxParser::RunningProcesses() { string lable, value;
     while(std::getline(stream,line)){
       std::istringstream linestream(line);
       linestream >> lable >> value;
-      if (lable == "proc_running"){
+      if (lable == "procs_running"){
           runningProc = stoi(value);
           return runningProc;
       }
