@@ -10,7 +10,7 @@ class Process {
  public:
   Process(int x){
     pid = x;
-  }  
+  }; 
   int Pid();                               // TODO: See src/process.cpp
   std::string User();                      // TODO: See src/process.cpp
   std::string Command();                   // TODO: See src/process.cpp
@@ -22,10 +22,10 @@ class Process {
   // TODO: Declare any necessary private members
  private:
     int pid;
-    string user;
-    string command;
+    std::string user;
+    std::string command;
     float cpuUtilization;
-    string ram;
+    std::string ram;
     long int upTime;
 
 };
