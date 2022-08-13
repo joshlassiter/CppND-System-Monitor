@@ -4,5 +4,5 @@
 int main() {
   System system;
   system.MemoryUtilization();
-  //NCursesDisplay::Display(system);
+  NCursesDisplay::Display(system);
 }

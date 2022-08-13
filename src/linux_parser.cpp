@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "linux_parser.h"
-
+#include <iostream>
 using std::stof;
 using std::string;
 using std::to_string;
@@ -112,7 +112,7 @@ long LinuxParser::Jiffies() {
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { 
+long LinuxParser::ActiveJiffies(int pid) { 
   std::stringstream ss;
   string num;
     ss<< pid;
@@ -157,7 +157,7 @@ long LinuxParser::ActiveJiffies() {
     guest = stol(Guest);
     guest_Nice = stol(Guest_Nice);
 
-    jiffies = (user + nice+system+irq+softIrq+steal+guest+guest_Nice+j)/sysconf(_SC_CLK_TCK);
+    jiffies = (user + nice+system+irq+softIrq+steal+guest+guest_Nice)/sysconf(_SC_CLK_TCK);
   }
 
    return jiffies;}
@@ -198,9 +198,10 @@ vector<string> LinuxParser::CpuUtilization() {
     std::istringstream linestream(line);
     for (int i = 0; i<=10; i++){
       linestream >> x;
-      if (x != "0" && x!="cpu" ){
+      if ( x!="cpu" ){
         cpuUtil.push_back(x);
       }
+      
     }
   }
   return cpuUtil; }
@@ -224,20 +225,23 @@ int LinuxParser::TotalProcesses() {
   return 0; }
 
 // TODO: Read and return the number of running processes
-int LinuxParser::RunningProcesses() { string lable, value;
+int LinuxParser::RunningProcesses() { 
+  string lable, value;
   string line;
   int runningProc;
   std::ifstream stream(kProcDirectory + kStatFilename);
-  if(stream.is_open()){
-    while(std::getline(stream,line)){
+  
+    while(stream.is_open()){
+      std::getline(stream,line);
       std::istringstream linestream(line);
       linestream >> lable >> value;
       if (lable == "procs_running"){
+       std::cout <<"yes";
           runningProc = stoi(value);
           return runningProc;
       }
-    }
-  }return 0; }
+    
+  }}//return runningProc; }
 
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function

@@ -21,13 +21,13 @@ Processor& System::Cpu() { return cpu_; }
 
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() { 
-    processes_.clear();
+    //processes_.clear();
     vector <int> p = LinuxParser::Pids();
-    for(int i=0;i<p.size(); i++){
+    for(int i=0;i<=p.size()-1; i++){
         Process x = Process(p.at(i));
         processes_.push_back(x);
     }
-    
+   
     return processes_; }
 
 // TODO: Return the system's kernel identifier (string)
