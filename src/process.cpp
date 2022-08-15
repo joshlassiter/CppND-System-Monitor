@@ -9,6 +9,7 @@
 using std::string;
 using std::to_string;
 using std::vector;
+using std::stof;
 
 // TODO: Return this process's ID
 int Process::Pid() { 
@@ -16,37 +17,54 @@ int Process::Pid() {
 
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { 
-      string line, num, x = "1.0" ;
+   string line, num, x ;
   float Uptime, tot, ans;
   long seconds;
-  float utime =1 , stime =1;
-  float cutime =1, cstime =1 , starttime=1;
+  long utime , stime;
+  long cutime, cstime, starttime;
     std::stringstream ss;
     ss<< pid;
     ss >> num;
     std::ifstream stream(LinuxParser::kProcDirectory + num + LinuxParser::kStatFilename );
     if(stream.is_open()){
       
-      while(std::getline(stream,line)){
+      
         std::istringstream linestream(line);
-        for(int i =0; i <= 22 ; i++){
+        for(int i =0; i < 22 ; i++){
           linestream >> x;
-         
+          if(i != 13||i != 14||i != 15||i != 16|| i!=21)
+          {
+            continue;
+          }
+          
           if(i == 13){
-            utime = stof(x);
             
-          } 
+              utime = stol(x);
+                        
+          }  
           if(i == 14){
-            stime = stof(x);
+            
+              stime = stol(x);
+            
+             
           }
           if(i = 15){
-            cutime = stof(x);
+            
+              cutime = stol(x);
+            
+            
           }
           if(i == 16){
-            cstime = stof(x);
+            
+              cstime = stol(x);
+            
+             
           }
           if(i==21){
-            starttime = stof(x);
+
+            
+              starttime = stol(x);
+            
             
             
             tot = utime + stime + cutime + cstime;
@@ -66,9 +84,9 @@ float Process::CpuUtilization() {
         
 
 
-    }
-    return 1.0; }
-
+    
+    //return 1.0; }
+}
 // TODO: Return the command that generated this process
 string Process::Command() { 
     command == LinuxParser::Command(pid);

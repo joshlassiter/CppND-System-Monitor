@@ -228,7 +228,7 @@ int LinuxParser::TotalProcesses() {
 int LinuxParser::RunningProcesses() { 
   string lable, value;
   string line;
-  int runningProc = 0;
+  int runningProc;
   std::ifstream stream(kProcDirectory + kStatFilename);
   
     while(stream.is_open()){
@@ -236,12 +236,13 @@ int LinuxParser::RunningProcesses() {
       std::istringstream linestream(line);
       linestream >> lable >> value;
       if (lable == "procs_running"){
-       std::cout <<"yes";
+       //std::cout <<"yes";
           runningProc = stoi(value);
           return runningProc;
       }
-    return runningProc;
-  }return runningProc;}//return runningProc; }
+    //return runningProc;
+  }//return runningProc;
+}//return runningProc; }
 
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
