@@ -16,45 +16,58 @@ int Process::Pid() {
 
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { 
-   string line, num, x;
-  float Uptime, tot, seconds, ans;
-  float utime , stime;
-  float cutime, cstime, starttime;
+      string line, num, x = "1.0" ;
+  float Uptime, tot, ans;
+  long seconds;
+  float utime =1 , stime =1;
+  float cutime =1, cstime =1 , starttime=1;
     std::stringstream ss;
     ss<< pid;
     ss >> num;
-    std::ifstream stream(LinuxParser::kProcDirectory + num + LinuxParser::kStatusFilename );
+    std::ifstream stream(LinuxParser::kProcDirectory + num + LinuxParser::kStatFilename );
     if(stream.is_open()){
       
-      
+      while(std::getline(stream,line)){
         std::istringstream linestream(line);
-        for(int i =0; i < 22 ; i++){
+        for(int i =0; i <= 22 ; i++){
           linestream >> x;
-          if(i = 13){
+         
+          if(i == 13){
             utime = stof(x);
-          }  
-          if(i = 14){
+            
+          } 
+          if(i == 14){
             stime = stof(x);
           }
           if(i = 15){
             cutime = stof(x);
           }
-          if(i = 16){
+          if(i == 16){
             cstime = stof(x);
           }
-          if(i=21){
+          if(i==21){
             starttime = stof(x);
-          }
-        }
-        
-        //tot = utime - stime;
-        tot = utime + stime + cutime + cstime;
+            
+            
+            tot = utime + stime + cutime + cstime;
         seconds = LinuxParser::UpTime(pid) - (starttime / sysconf(_SC_CLK_TCK) );
         ans = 100 * ((tot/sysconf(_SC_CLK_TCK))/ seconds);
+        cpuUtilization = ans;
+		return cpuUtilization;
+          }
+          
+          
+        } 
+         
+          
+        }
+      
+        //tot = utime - stime;
+        
 
 
     }
-    return ans;  }
+    return 1.0; }
 
 // TODO: Return the command that generated this process
 string Process::Command() { 
@@ -72,7 +85,7 @@ string Process::User() {
      return user; }
 
 // TODO: Return the age of this process (in seconds)
-long int Process::UpTime() {
+long Process::UpTime() {
     upTime = LinuxParser::UpTime(pid); 
     return upTime; }
 
