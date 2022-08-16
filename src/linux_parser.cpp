@@ -86,7 +86,7 @@ float LinuxParser::MemoryUtilization() {
         }
     }
 
-    memUtil = memTot - memFree;
+    memUtil = memFree/ (memTot - memFree);
   }
   return memUtil; }
 

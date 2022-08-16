@@ -68,8 +68,8 @@ float Process::CpuUtilization() {
             
             
             tot = utime + stime + cutime + cstime;
-        seconds = LinuxParser::UpTime(pid) - (starttime / sysconf(_SC_CLK_TCK) );
-        ans = 100 * ((tot/sysconf(_SC_CLK_TCK))/ seconds);
+        seconds = Process::UpTime() ;
+        ans = ((tot/sysconf(_SC_CLK_TCK))/ seconds);
         cpuUtilization = ans;
 		return cpuUtilization;
           }
@@ -80,7 +80,7 @@ float Process::CpuUtilization() {
           
         }
       
-        //tot = utime - stime;
+       
         
 
 
@@ -104,7 +104,7 @@ string Process::User() {
 
 // TODO: Return the age of this process (in seconds)
 long Process::UpTime() {
-    upTime = LinuxParser::UpTime(pid); 
+    upTime = LinuxParser::UpTime() - LinuxParser::UpTime(pid); 
     return upTime; }
 
 // TODO: Overload the "less than" comparison operator for Process objects

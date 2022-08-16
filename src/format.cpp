@@ -19,7 +19,7 @@ string Format::ElapsedTime(long seconds) {
     hh >> hr;
 
     std::stringstream mm;
-    mm << min;
+    mm << minute;
     mm >> min;
 
     std::stringstream ss;
