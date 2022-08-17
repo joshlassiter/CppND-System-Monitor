@@ -86,7 +86,7 @@ float LinuxParser::MemoryUtilization() {
         }
     }
 
-    memUtil = memFree/ (memTot - memFree);
+    memUtil = (memTot - memFree)/memFree;
   }
   return memUtil; }
 
@@ -247,7 +247,7 @@ int LinuxParser::RunningProcesses() {
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::Command(int pid) {
-    string line, num;
+    string line = "unknown" , num;
     std::stringstream ss;
     ss<< pid;
     ss >> num;
@@ -257,7 +257,7 @@ string LinuxParser::Command(int pid) {
       return line;
     }
 
-   return line; }
+   return "unknown"; }
 
 // TODO: Read and return the memory used by a process
 // REMOVE: [[maybe_unused]] once you define the function

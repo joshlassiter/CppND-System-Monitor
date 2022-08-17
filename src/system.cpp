@@ -3,7 +3,7 @@
 #include <set>
 #include <string>
 #include <vector>
-
+#include <math.h>
 #include "process.h"
 #include "processor.h"
 #include "system.h"
@@ -24,8 +24,13 @@ vector<Process>& System::Processes() {
     //processes_.clear();
     vector <int> p = LinuxParser::Pids();
     for(int i=0;i<=p.size()-1; i++){
+      
         Process x = Process(p.at(i));
+      
+        if(x.Command() != "unknown" && x.CpuUtilization() != 0 && x.Ram() != "unknown")
+        {
         processes_.push_back(x);
+        }
     }
    
     return processes_; }
