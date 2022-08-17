@@ -18,10 +18,10 @@ int Process::Pid() {
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { 
    string line, num, x ;
-  float Uptime, tot, ans;
+  float tot, ans;
   long seconds;
   long utime , stime;
-  long cutime, cstime, starttime;
+  long cutime, cstime;
     std::stringstream ss;
     ss<< pid;
     ss >> num;
@@ -30,9 +30,9 @@ float Process::CpuUtilization() {
       
       
         std::istringstream linestream(line);
-        for(int i =0; i < 22 ; i++){
+        for(int i =0; i < 17 ; i++){
           linestream >> x;
-          if(i != 13||i != 14||i != 15||i != 16|| i!=21)
+          if(i != 13||i != 14||i != 15||i != 16)
           {
             continue;
           }
@@ -48,7 +48,7 @@ float Process::CpuUtilization() {
             
              
           }
-          if(i = 15){
+          if(i == 15){
             
               cutime = stol(x);
             
@@ -57,22 +57,14 @@ float Process::CpuUtilization() {
           if(i == 16){
             
               cstime = stol(x);
-            
-             
-          }
-          if(i==21){
-
-            
-              starttime = stol(x);
-            
-            
-            
             tot = utime + stime + cutime + cstime;
         seconds = Process::UpTime() ;
         ans = ((tot/sysconf(_SC_CLK_TCK))/ seconds);
         cpuUtilization = ans;
 		return cpuUtilization;
+             
           }
+          
           
           
         } 
@@ -83,7 +75,7 @@ float Process::CpuUtilization() {
        
         
 
-
+return 0;
     
     //return 1.0; }
 }

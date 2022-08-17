@@ -140,7 +140,7 @@ long LinuxParser::ActiveJiffies(int pid) {
 long LinuxParser::ActiveJiffies() {
   long jiffies;
   string line, lable, User="1.0", Nice ="1.0", System ="1.0", Idle ="1.0", IoWait ="1.0", Irq ="1.0", SoftIrq ="1.0", Steal ="1.0", Guest ="1.0", Guest_Nice ="1.0";
-  long user, nice,system,idle,ioWait,irq,softIrq,steal,guest,guest_Nice,j;
+  long user, nice,system,irq,softIrq,steal,guest,guest_Nice;
   std::ifstream stream(kProcDirectory + kStatFilename);
   if(stream.is_open()){
     std::getline(stream, line);
@@ -149,8 +149,8 @@ long LinuxParser::ActiveJiffies() {
     user = stol(User);
     nice = stol(Nice);
     system = stol(System);
-    idle = stol(Idle);
-    ioWait = stol(IoWait);
+    //idle = stol(Idle);
+   // ioWait = stol(IoWait);
     irq = stol(Irq);
     softIrq = stol(SoftIrq);
     steal = stol(Steal);
@@ -165,22 +165,22 @@ long LinuxParser::ActiveJiffies() {
 // TODO: Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() { long jiffies;
   string line, lable, User ="1.0", Nice ="1.0", System ="1.0", Idle ="1.0", IoWait ="1.0", Irq ="1.0", SoftIrq ="1.0", Steal ="1.0", Guest ="1.0", Guest_Nice ="1.0";
-  long user, nice,system,idle,ioWait,irq,softIrq,steal,guest,guest_Nice,j;
+  long idle,ioWait;
   std::ifstream stream(kProcDirectory + kStatFilename);
   if(stream.is_open()){
     std::getline(stream, line);
     std::istringstream linestream(line);
     linestream >>lable >> User >>  Nice >> System >> Idle >> IoWait >> Irq >> SoftIrq >> Steal >> Guest >> Guest_Nice ;
-    user = stol(User);
-    nice = stol(Nice);
-    system = stol(System);
+    //user = stol(User);
+    //nice = stol(Nice);
+    //system = stol(System);
     idle = stol(Idle);
     ioWait = stol(IoWait);
-    irq = stol(Irq);
-    softIrq = stol(SoftIrq);
-    steal = stol(Steal);
-    guest = stol(Guest);
-    guest_Nice = stol(Guest_Nice);
+    //irq = stol(Irq);
+    //softIrq = stol(SoftIrq);
+    //steal = stol(Steal);
+    //guest = stol(Guest);
+    //guest_Nice = stol(Guest_Nice);
 
     jiffies = idle + ioWait;
   }
@@ -228,7 +228,7 @@ int LinuxParser::TotalProcesses() {
 int LinuxParser::RunningProcesses() { 
   string lable, value;
   string line;
-  int runningProc;
+  int runningProc = 0;
   std::ifstream stream(kProcDirectory + kStatFilename);
   
     while(stream.is_open()){
@@ -241,7 +241,8 @@ int LinuxParser::RunningProcesses() {
           return runningProc;
       }
     //return runningProc;
-  }//return runningProc;
+  }
+  return runningProc;
 }//return runningProc; }
 
 // TODO: Read and return the command associated with a process
