@@ -8,7 +8,7 @@ float Processor::Utilization() {
       vector <string> util = LinuxParser::CpuUtilization();
    float total, idle, newTot, newId, X;
    
-   for (int i=0; i<util.size();i++){
+   for (  int i=0; i<util.size();i++){
       total += stof(util[i]);
    }
    
