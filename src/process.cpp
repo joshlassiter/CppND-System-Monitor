@@ -81,7 +81,7 @@ return 0;
 }
 // TODO: Return the command that generated this process
 string Process::Command() { 
-    command == LinuxParser::Command(pid);
+    command = LinuxParser::Command(pid);
     return command; }
 
 // TODO: Return this process's memory utilization
