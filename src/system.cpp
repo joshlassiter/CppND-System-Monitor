@@ -27,7 +27,7 @@ vector<Process>& System::Processes() {
       
         Process x = Process(p.at(i));
       
-        if(x.Command() != "unknown"  && x.CpuUtilization() != 0 &&  x.Ram() != "unknown")
+        if(x.Command() != "unknown" && x.CpuUtilization() != 0  &&  x.Ram() != "unknown")
         {
         processes_.push_back(x);
         }

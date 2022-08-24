@@ -196,7 +196,7 @@ vector<string> LinuxParser::CpuUtilization() {
   if(stream.is_open()){
     std::getline(stream,line);
     std::istringstream linestream(line);
-    for (int i = 0; i<=10; i++){
+    for (unsigned int i = 0; i<=10; i++){
       linestream >> x;
       if ( x!="cpu" ){
         cpuUtil.push_back(x);

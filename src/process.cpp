@@ -28,33 +28,30 @@ float Process::CpuUtilization() {
     std::ifstream stream(LinuxParser::kProcDirectory + num + LinuxParser::kStatFilename );
     if(stream.is_open()){
       
-      
+      	while(std::getline(stream,line)){
         std::istringstream linestream(line);
         for(int i =0; i < 17 ; i++){
           linestream >> x;
-          if(i != 13||i != 14||i != 15||i != 16)
-          {
-            continue;
-          }
+         
           
           if(i == 13){
             
               utime = stol(x);
                         
           }  
-          if(i == 14){
+          else if(i == 14){
             
               stime = stol(x);
             
              
           }
-          if(i == 15){
+          else if(i == 15){
             
               cutime = stol(x);
             
             
           }
-          if(i == 16){
+          else if(i == 16){
             
               cstime = stol(x);
             tot = utime + stime + cutime + cstime;
@@ -64,6 +61,9 @@ float Process::CpuUtilization() {
 		return cpuUtilization;
              
           }
+          else {
+          
+          }
           
           
           
@@ -72,12 +72,12 @@ float Process::CpuUtilization() {
           
         }
       
-       
+    }
         
 
 return 0;
     
-    //return 1.0; }
+    
 }
 // TODO: Return the command that generated this process
 string Process::Command() { 
